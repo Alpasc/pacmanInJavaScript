@@ -1,7 +1,8 @@
 document.addEventListener('DOMContentLoaded', ()=> {
   const grid = document.querySelector('.grid');
-  const scoreDsplay = document.getElementById('score');
+  const scoreDisplay = document.getElementById('score');
   const width = 28; // 28 x 28 = 784 carrés
+  let score = 0;
 
   const layout = [
     1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
@@ -70,7 +71,7 @@ document.addEventListener('DOMContentLoaded', ()=> {
 
   squares[pacmanCurrentIndex].classList.add('pac-man');
 
-  //bouger pacman
+  // faire bouger pacman
 
   function movePacman(e) {
     squares[pacmanCurrentIndex].classList.remove('pac-man')
@@ -113,4 +114,16 @@ document.addEventListener('DOMContentLoaded', ()=> {
   }
 
   document.addEventListener('keyup', movePacman)
+
+  //action quand pacman mange un pac-dot
+  function pacDotEaten() {
+    if(squares[pacmanCurrentIndex].classList.contains('pac-dot')) {
+      score++
+      scoreDisplay.innerHTML = score
+      squares[pacmanCurrentIndex].classList.remove('pac-dot')
+    }
+  }
+
+  
+
 })
