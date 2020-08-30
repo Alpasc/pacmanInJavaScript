@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', ()=> {
   3 - power-pellet
   4 - empty*/
 
-  //draw the grid and render it
+  //dessiner la grille
 
   function createBoard() {
     for (let i=0; i < layout.length; i++) {
@@ -148,5 +148,33 @@ document.addEventListener('DOMContentLoaded', ()=> {
     squares[ghost.currentIndex].classList.add('ghost')
   });
 
+  //faire bouger les fantomes de façon aléatoire
+  ghosts.forEach(ghost => moveGhost(ghost))
+
+  //fonction pour faire bouger les fantomes
+  function moveGhost(ghost) {
+    const directions = [-1, +1, width, -width]
+    let direction = directions[Math.floor(Math.random() * directions.length)]
+
+    ghost.timerId = setInterval(function() {
+      // le fantome peut aller sur un carré si ce n'est pas un mur et s'il n'y a pas deja un autre fantome
+      if(!squares[ghost.currentIndex + direction].classList.contains('wall') 
+        && !squares[ghost.currentIndex + direction].classList.contains('ghost')) {
+          // le fantome peut bouger
+          // enlever les classes fantomes
+          squares[ghost.currentIndex].classList.remove(ghost.className, 'ghost', 'scared-ghost');
+          // changer le currentIndex vers le nouveau carré
+          ghost.currentIndex += direction
+          // redessiner le fantome sur ce nouveau carré
+          squares[ghost.currentIndex].classList.add(ghost.className, 'ghost')
+
+          // sinon le fantome cherche une autre direction
+        } else direction = directions[Math.floor(Math.random() * directions.length)]
+
+      
+
+
+    }, ghost.speed)
+  }
 
 })
