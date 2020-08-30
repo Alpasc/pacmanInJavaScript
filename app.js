@@ -75,20 +75,20 @@ document.addEventListener('DOMContentLoaded', ()=> {
 
     switch(e.keyCode) {
       case 37:
-        if(pacmanCurrentIndex % width !== 0) pacmanCurrentIndex -=1
+        if(pacmanCurrentIndex % width !== 0 && !squares[pacmanCurrentIndex -1].classList.contains('wall')) pacmanCurrentIndex -=1;
         break;
       case 38:
-        if(pacmanCurrentIndex - width >= 0) pacmanCurrentIndex -=width
+        if(pacmanCurrentIndex - width >= 0 && !squares[pacmanCurrentIndex -width].classList.contains('wall')) pacmanCurrentIndex -=width;
         break;
       case 39:
-        if(pacmanCurrentIndex % width < width -1) pacmanCurrentIndex +=1
+        if(pacmanCurrentIndex % width < width -1 && !squares[pacmanCurrentIndex +1].classList.contains('wall')) pacmanCurrentIndex +=1;
         break;
       case 40:
-        if(pacmanCurrentIndex + width < width*width) pacmanCurrentIndex +=width
-        break
+        if(pacmanCurrentIndex + width < width*width && !squares[pacmanCurrentIndex +width].classList.contains('wall')) pacmanCurrentIndex +=width;
+        break;
     }
 
-    squares[pacmanCurrentIndex].classList.add('pac-man')
+    squares[pacmanCurrentIndex].classList.add('pac-man');
 
     /*pacDotEaten()
     powePelletEaten()
@@ -96,5 +96,5 @@ document.addEventListener('DOMContentLoaded', ()=> {
     checkForWin()*/
   }
 
-  document.add('keyup', movePacman)
+  document.addEventListener('keyup', movePacman)
 })
