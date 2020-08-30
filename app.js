@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', ()=> {
   const grid = document.querySelector('.grid');
   const scoreDsplay = document.getElementById('score');
-  const width = 28;
+  const width = 28; // 28 x 28 = 784 carrés
 
   const layout = [
     1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
@@ -56,7 +56,9 @@ document.addEventListener('DOMContentLoaded', ()=> {
         squares[i].classList.add('pac-dot')
       } else if(layout[i] === 1) {
         squares[i].classList.add('wall')
-      } else if(layout[i] === 3) {
+      } else if(layout[i] === 2) {
+        squares[i].classList.add('ghost-lair')
+      }else if(layout[i] === 3) {
         squares[i].classList.add('power-pellet')
       }
     }
@@ -75,23 +77,37 @@ document.addEventListener('DOMContentLoaded', ()=> {
 
     switch(e.keyCode) {
       case 37:
-        if(pacmanCurrentIndex % width !== 0 && !squares[pacmanCurrentIndex -1].classList.contains('wall')) pacmanCurrentIndex -=1;
+        if(pacmanCurrentIndex % width !== 0 && !squares[pacmanCurrentIndex -1].classList.contains('wall')
+          && !squares[pacmanCurrentIndex -1].classList.contains('ghost-lair')) pacmanCurrentIndex -=1;
+
+          // vefification que pacman est au niveau de la sortie de gauche
+        if((pacmanCurrentIndex -1) === 363) {
+          pacmanCurrentIndex = 391
+        }
         break;
       case 38:
-        if(pacmanCurrentIndex - width >= 0 && !squares[pacmanCurrentIndex -width].classList.contains('wall')) pacmanCurrentIndex -=width;
+        if(pacmanCurrentIndex - width >= 0 && !squares[pacmanCurrentIndex -width].classList.contains('wall')
+          && !squares[pacmanCurrentIndex -width].classList.contains('ghost-lair')) pacmanCurrentIndex -=width;
         break;
       case 39:
-        if(pacmanCurrentIndex % width < width -1 && !squares[pacmanCurrentIndex +1].classList.contains('wall')) pacmanCurrentIndex +=1;
+        if(pacmanCurrentIndex % width < width -1 && !squares[pacmanCurrentIndex +1].classList.contains('wall')
+          && !squares[pacmanCurrentIndex +1].classList.contains('ghost-lair')) pacmanCurrentIndex +=1;
+        
+          // vefification que pacman est au niveau de la sortie de droite
+          if((pacmanCurrentIndex +1) === 392) {
+            pacmanCurrentIndex = 364
+          }
         break;
       case 40:
-        if(pacmanCurrentIndex + width < width*width && !squares[pacmanCurrentIndex +width].classList.contains('wall')) pacmanCurrentIndex +=width;
+        if(pacmanCurrentIndex + width < width*width && !squares[pacmanCurrentIndex +width].classList.contains('wall')
+        && !squares[pacmanCurrentIndex +width].classList.contains('ghost-lair')) pacmanCurrentIndex +=width;
         break;
     }
 
     squares[pacmanCurrentIndex].classList.add('pac-man');
 
-    /*pacDotEaten()
-    powePelletEaten()
+    pacDotEaten()
+    /*powePelletEaten()
     checkForGameOver()
     checkForWin()*/
   }
