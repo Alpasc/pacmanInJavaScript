@@ -108,9 +108,9 @@ document.addEventListener('DOMContentLoaded', ()=> {
     squares[pacmanCurrentIndex].classList.add('pac-man');
 
     pacDotEaten()
-    /*powePelletEaten()
-    checkForGameOver()
-    checkForWin()*/
+    powerPelletEaten()
+    //checkForGameOver()
+    //checkForWin()
   }
 
   document.addEventListener('keyup', movePacman)
@@ -124,6 +124,21 @@ document.addEventListener('DOMContentLoaded', ()=> {
     }
   }
 
+  // quand pacman mange un power-pellet (pilulle de puissance)
+  function powerPelletEaten() {
+    if(squares[pacmanCurrentIndex].classList.contains('power-pellet')) {
+      score +=10
+      ghosts.forEach(ghost => ghost.isScared = true)
+      setTimeout(unscareGhosts, 10000)
+      squares[pacmanCurrentIndex].classList.remove('power-pellet')
+    }
+  }
+
+  // faire en sorte que le fantome ne soit plus scared
+  function unscareGhosts() {
+    ghosts.forEach(ghost => ghost.isScared = false)
+  }
+
   //creer un template de fantome
   class Ghost {
     constructor(className, startIndex, speed) {
@@ -132,6 +147,7 @@ document.addEventListener('DOMContentLoaded', ()=> {
       this.speed = speed
       this.currentIndex = startIndex
       this.timerId = NaN
+      this.isScared = false
     }
   }
 
@@ -167,11 +183,13 @@ document.addEventListener('DOMContentLoaded', ()=> {
           ghost.currentIndex += direction
           // redessiner le fantome sur ce nouveau carré
           squares[ghost.currentIndex].classList.add(ghost.className, 'ghost')
-
           // sinon le fantome cherche une autre direction
         } else direction = directions[Math.floor(Math.random() * directions.length)]
 
-      
+        // pendant que le fantome isScared
+        if(ghost.isScared) {
+          squares[ghost.currentIndex].classList.add('scared-ghost')
+        }
 
 
     }, ghost.speed)
