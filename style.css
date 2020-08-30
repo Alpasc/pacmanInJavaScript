@@ -12,16 +12,21 @@
 }
 
 .pac-dot {
-  background-color: green;
+  background-color: teal;
   border: 5px solid white;
   box-sizing: border-box;
 }
 
 .wall {
-  background-color: blue;
+  background-color: teal;
 }
 
 .power-pellet {
-  background-color: green;
+  background-color: palevioletred;
+  border-radius: 10px;
+}
+
+.pac-man {
+  background-color: yellow;
   border-radius: 10px;
 }
