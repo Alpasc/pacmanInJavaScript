@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', ()=> {
 
   const squares = [];
 
-  /*legend
+  /*légende
   0 - pac-dot
   1 - wall
   2 - ghost-lair
@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', ()=> {
       grid.appendChild(square);
       squares.push(square);
 
-      //add layout to the board
+      //ajouter la composition du plateau de jeu
       if(layout[i] === 0) {
         squares[i].classList.add('pac-dot')
       } else if(layout[i] === 1) {
@@ -63,12 +63,12 @@ document.addEventListener('DOMContentLoaded', ()=> {
   }
   createBoard();
 
-  //starting position of pac-man
+  //ajouter pacman au plateau de jeu
   let pacmanCurrentIndex = 490;
 
   squares[pacmanCurrentIndex].classList.add('pac-man');
 
-  //move pac-man
+  //bouger pacman
 
   function movePacman(e) {
     squares[pacmanCurrentIndex].classList.remove('pac-man')
@@ -90,5 +90,11 @@ document.addEventListener('DOMContentLoaded', ()=> {
 
     squares[pacmanCurrentIndex].classList.add('pac-man')
 
+    /*pacDotEaten()
+    powePelletEaten()
+    checkForGameOver()
+    checkForWin()*/
   }
+
+  document.add('keyup', movePacman)
 })
