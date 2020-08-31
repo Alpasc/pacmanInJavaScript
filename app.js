@@ -191,6 +191,14 @@ document.addEventListener('DOMContentLoaded', ()=> {
           squares[ghost.currentIndex].classList.add('scared-ghost')
         }
 
+        // // si le fantome isScared et pacman passe dessus, pacman le mange
+        // if(ghost.isScared && squares[ghost.currentIndex].classList.contains('pac-man')){
+        //   squares[ghost.currentIndex].classList.remove(ghost.className, 'ghost', 'scared-ghost')
+        //   ghost.currentIndex = startIndex
+        //   score += 100
+        //   squares[ghost.currentIndex].classList.add(ghost.className, 'ghost')
+        // }
+
 
     }, ghost.speed)
   }
