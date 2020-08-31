@@ -17,12 +17,27 @@
   box-sizing: border-box;
 }
 
+.pac-dotLost {
+  background-color: magenta;
+  border: 5px solid white;
+  box-sizing: border-box;
+}
+
 .wall {
   background-color: teal;
 }
 
+.wallLost {
+  background-color: magenta;
+}
+
 .power-pellet {
   background-color: palevioletred;
+  border-radius: 10px;
+}
+
+.power-pelletLost {
+  background-color: magenta;
   border-radius: 10px;
 }
 

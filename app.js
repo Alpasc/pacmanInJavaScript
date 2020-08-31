@@ -110,7 +110,7 @@ document.addEventListener('DOMContentLoaded', ()=> {
     pacDotEaten()
     powerPelletEaten()
     checkForGameOver()
-    //checkForWin()
+    checkForWin()
   }
 
   document.addEventListener('keyup', movePacman)
@@ -191,29 +191,55 @@ document.addEventListener('DOMContentLoaded', ()=> {
           squares[ghost.currentIndex].classList.add('scared-ghost')
         }
 
-        // // si le fantome isScared et pacman passe dessus, pacman le mange
-        // if(ghost.isScared && squares[ghost.currentIndex].classList.contains('pac-man')){
-        //   squares[ghost.currentIndex].classList.remove(ghost.className, 'ghost', 'scared-ghost')
-        //   ghost.currentIndex = startIndex
-        //   score += 100
-        //   squares[ghost.currentIndex].classList.add(ghost.className, 'ghost')
-        // }
-      checkGameOver();
+        // si le fantome isScared et pacman passe dessus, pacman le mange
+        if(ghost.isScared && squares[ghost.currentIndex].classList.contains('pac-man')) {
+          squares[ghost.currentIndex].classList.remove(ghost.className, 'ghost', 'scared-ghost')
+          ghost.currentIndex = ghost.startIndex
+          squares[ghost.currentIndex].classList.add(ghost.className, 'ghost')
+          score += 100
+        }
+      checkForGameOver();
 
     }, ghost.speed)
     
   }
 
   // game over
-  function checkGameOver() {
+  function checkForGameOver() {
     if(squares[pacmanCurrentIndex].classList.contains('ghost') && 
       !squares[pacmanCurrentIndex].classList.contains('scared-ghost')) {
+        // if(layout[i] === 0) {
+        //   squares[i].classList.remove('pac-dot')
+        //   squares[i].classList.add('pac-dotLost')
+        // } else if(layout[i] === 1) {
+        //   squares[i].classList.remove('wall')
+        //   squares[i].classList.add('wallLost')
+        // } else if(layout[i] === 3) {
+        //   squares[i].classList.remove('power-pellet')
+        //   squares[i].classList.add('power-pelletLost')
+        // }
         squares[pacmanCurrentIndex].classList.remove('pac-man')
         ghosts.forEach(ghost => clearInterval(ghost.timerId))
         document.removeEventListener('keyup', movePacman)
         // setTimeout(function(){alert('Game Over !')}, 500)
         scoreDisplay.innerHTML = 'GAME OVER !'
       }
+  }
+
+  // partie gagnée
+  // function checkForWin() {
+  //   if (score === 274) {
+  //     ghosts.forEach(ghost => clearInterval(ghost.timerId))
+  //     document.removeEventListener('keyup', movePacman)
+  //     scoreDisplay.innerHTML = 'YOU WON !'
+  //   }
+  // }
+  function checkForWin() {
+    if (score === 274) {
+      ghosts.forEach(ghost => clearInterval(ghost.timerId))
+      document.removeEventListener('keyup', movePacman)
+      setTimeout(function(){ alert("Tu as gagné !"); }, 500)
+    }
   }
 
 })
