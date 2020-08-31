@@ -8,6 +8,7 @@
 .title {
   display: flex;
   justify-content: center;
+  color: blueviolet;
 }
 
 .grid {
